@@ -3,19 +3,16 @@ import { EventCard } from '@/components/EventCard';
 import { FilterPanel } from '@/components/FilterPanel';
 import { IEvent } from '@/types';
 
-// ডেটাবেস থেকে ইভেন্ট ফেচ করার ফাংশন
 async function getEvents(params: { category?: string; search?: string }): Promise<IEvent[]> {
   const client = await MongoClient.connect(process.env.MONGODB_URI!);
   const db = client.db("eventsphere_db");
   
   const query: Filter<IEvent> = {};
   
-  // সার্চ লজিক
   if (params.search) {
     query.title = { $regex: params.search, $options: 'i' };
   }
   
-  // ক্যাটাগরি লজিক (All হলে ফিল্টার দরকার নেই)
   if (params.category && params.category !== 'all') {
     query.category = params.category;
   }
@@ -29,7 +26,6 @@ async function getEvents(params: { category?: string; search?: string }): Promis
   }));
 }
 
-// Next.js 15+ এর জন্য searchParams কে প্রমিস হিসেবে নিতে হবে
 export default async function EventsPage({ 
   searchParams 
 }: { 
