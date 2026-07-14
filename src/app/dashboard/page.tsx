@@ -38,6 +38,7 @@ const DashboardPage = () => {
 
   const user = session.user as CustomUser;
   const userRole = user?.role || 'user';
+  
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
@@ -52,6 +53,7 @@ const DashboardPage = () => {
           </p>
         </div>
         
+        {/* রিকোয়ারমেন্ট অনুযায়ী বাটন লজিক */}
         <div className="flex gap-4">
           {userRole === 'admin' && (
             <Link href="/items/manage" className="px-6 py-3 bg-gray-100 text-gray-900 font-bold rounded-xl hover:bg-gray-200 transition">
@@ -59,12 +61,14 @@ const DashboardPage = () => {
             </Link>
           )}
           
+          {/* Add Event এ ক্লিক করলে এখন সরাসরি /items/add এ যাবে */}
           <Link href="/items/add" className="px-6 py-3 bg-violet-600 text-white font-bold rounded-xl hover:bg-violet-700 transition">
             + Add New Event
           </Link>
         </div>
       </div>
       
+      {/* স্ট্যাটাস কার্ডস */}
       <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="p-8 bg-white border border-gray-100 rounded-2xl shadow-sm">
           <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Total Events</h3>

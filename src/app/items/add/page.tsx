@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from '@heroui/react';
 
 export default function AddEventPage() {
   const router = useRouter();
@@ -40,7 +41,7 @@ export default function AddEventPage() {
       });
 
       if (response.ok) {
-        alert('Event submitted successfully! Waiting for admin approval.');
+        toast.success('Event submitted successfully! Waiting for admin approval.');
         router.push('/dashboard');
       } else {
         setError('Failed to submit event. Please try again.');
