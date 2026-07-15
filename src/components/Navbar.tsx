@@ -121,7 +121,7 @@ const Navbar = () => {
               )}
 
               <Button 
-                variant="light" 
+                variant="ghost"
                 onClick={handleLogout} 
                 className="text-red-500 font-bold h-9 px-3 rounded-xl hover:bg-red-50 text-xs transition-colors"
               >
