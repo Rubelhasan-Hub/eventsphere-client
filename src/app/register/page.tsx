@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { signUp, signIn } from '@/lib/auth-client';
+import { signUp, signIn, authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { toast } from '@heroui/react';
@@ -38,7 +38,7 @@ const RegisterPage = () => {
         },
         onSuccess: async () => {
           toast.success("Account Created Successfully!");
-          
+
           try {
             await (signIn as any).email({
               email,
@@ -75,16 +75,12 @@ const RegisterPage = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      await (signIn as any).social({
+      await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/"
-      }, {
-        onError: (ctx: any) => {
-          toast.danger(ctx.error?.message || "Google Login Failed");
-        }
+        callbackURL: "/",
       });
-    } catch {
-      toast.danger("Google Login Failed");
+    } catch (err) {
+      console.error("Google Login Error:", err);
     }
   };
 
@@ -107,8 +103,14 @@ const RegisterPage = () => {
           <button
             onClick={handleGoogleLogin}
             type="button"
-            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-50 border border-gray-200/80 py-3.5 px-4 rounded-2xl text-sm font-bold text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all active:scale-[0.98]"
+            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-50 border border-gray-200/80 py-3.5 px-4 rounded-2xl text-sm font-bold text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all active:scale-[0.98] cursor-pointer"
           >
+            <svg className="h-5 w-5" viewBox="0 0 24 24">
+              <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3A11.95 11.95 0 0 0 12 .909c-4.473 0-8.345 2.454-10.382 6.073l3.647 2.783z" />
+              <path fill="#4285F4" d="M23.455 12.273c0-.818-.064-1.609-.191-2.373H12v4.527h6.427a5.57 5.57 0 0 1-2.409 3.655l3.709 2.873c2.164-2 3.428-4.945 3.428-8.682z" />
+              <path fill="#FBBC05" d="M5.266 14.235L1.62 17.018A11.95 11.95 0 0 0 12 23.091c3.255 0 5.991-1.073 7.991-2.918l-3.709-2.873a7.127 7.127 0 0 1-4.282 1.209c-3.1 0-5.755-2.091-6.734-4.873z" />
+              <path fill="#34A853" d="M1.618 6.982C.582 8.527 0 10.209 0 12s.582 3.473 1.618 5.018l3.648-2.783A7.042 7.042 0 0 1 4.91 12c0-1.01.218-1.973.573-2.855L1.618 6.982z" />
+            </svg>
             Continue with Google
           </button>
         </div>

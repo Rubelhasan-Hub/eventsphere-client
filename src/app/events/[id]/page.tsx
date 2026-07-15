@@ -21,7 +21,13 @@ export default async function EventDetailsPage({ params }: { params: Promise<{ i
     <main className="max-w-7xl mx-auto px-4 py-20">
       <div className="grid md:grid-cols-2 gap-16 items-start">
         <MotionDiv initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
-          <Image src={event.image} alt={event.title} width={600} height={600} className="w-full h-150 object-cover rounded-[3rem] shadow-2xl" />
+          <Image
+            src={event.image && event.image.startsWith('http') ? event.image : '/placeholder-event.png'}
+            alt={event.title || "Event Image"}
+            width={600}
+            height={600}
+            className="w-full h-150 object-cover rounded-3xl"
+          />
         </MotionDiv>
 
         <MotionDiv initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">

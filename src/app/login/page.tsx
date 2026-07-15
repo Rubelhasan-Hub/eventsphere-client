@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { signIn } from '@/lib/auth-client';
+import { authClient, signIn } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { toast } from '@heroui/react';
@@ -46,16 +46,12 @@ const LoginPage = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      await signIn.social({
+      await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/"
-      }, {
-        onError: (ctx) => {
-          toast.danger(ctx.error.message || "Google Login Failed");
-        }
+        callbackURL: "/",
       });
-    } catch {
-      toast.danger("Google Login Failed");
+    } catch (err) {
+      console.error("Google Login Error:", err);
     }
   };
 
@@ -79,7 +75,7 @@ const LoginPage = () => {
           <button
             onClick={handleGoogleLogin}
             type="button"
-            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-50 border border-gray-200/80 py-3.5 px-4 rounded-2xl text-sm font-bold text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all active:scale-[0.98]"
+            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-50 border border-gray-200/80 py-3.5 px-4 rounded-2xl text-sm font-bold text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all active:scale-[0.98] cursor-pointer"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3A11.95 11.95 0 0 0 12 .909c-4.473 0-8.345 2.454-10.382 6.073l3.647 2.783z" />
@@ -113,7 +109,6 @@ const LoginPage = () => {
               />
             </div>
 
-            {/* Password Input with Eye Icon */}
             <div>
               <label className="block text-xs font-extrabold uppercase tracking-widest text-gray-500 mb-2">
                 Password
