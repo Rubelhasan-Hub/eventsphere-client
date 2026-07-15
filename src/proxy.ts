@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getSessionCookie } from "better-auth/cookies";
 
 export async function proxy(request: NextRequest) {
-  const sessionToken = request.cookies.get("better-auth.session_token");
+  const sessionCookie = getSessionCookie(request);
 
-  if (!sessionToken && (request.nextUrl.pathname.startsWith('/events') || request.nextUrl.pathname.startsWith('/dashboard'))) {
+  if (!sessionCookie && (request.nextUrl.pathname.startsWith('/events') || request.nextUrl.pathname.startsWith('/dashboard'))) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 

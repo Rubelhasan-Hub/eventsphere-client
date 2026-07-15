@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from '@heroui/react';
 import Link from 'next/link';
+import { useSession } from '@/lib/auth-client';
 
 interface Event {
   _id: any; 
@@ -14,30 +15,24 @@ interface Event {
 
 export default function ManageEventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
+  const { data: session, isPending } = useSession();
 
-useEffect(() => {
-    const token = localStorage.getItem("token"); // আপনার অ্যাপে যে নামে টোকেন সেভ করেন সেটি দিন
+  useEffect(() => {
+    if (isPending) return;
+    if (!session?.session?.token) return;
 
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/events`, {
-      method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` // টোকেনটি এখানে পাস করা বাধ্যতামূলক
-      }
+        Authorization: `Bearer ${session.session.token}`,
+      },
     })
-      .then((res) => {
-        if (!res.ok) throw new Error("Unauthorized");
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
-        // ব্যাকএন্ডের রেসপন্স অনুযায়ী ডাটা সেট করুন
-        setEvents(data.events || []); 
+        console.log("API Response:", data);
+        setEvents(Array.isArray(data) ? data : (data.events || [])); 
       })
-      .catch((err) => {
-        console.error("Error fetching events:", err);
-        toast.danger("Failed to load events. Please login again.");
-      });
-  }, []);
+      .catch((err) => console.error("Error fetching events:", err));
+  }, [session, isPending]);
 
   const getEventId = (id: any) => (typeof id === 'string' ? id : id?.$oid || id);
 

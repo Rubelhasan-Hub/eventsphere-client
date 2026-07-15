@@ -15,7 +15,21 @@ export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
   }),
-  
+
+  baseURL: process.env.BETTER_AUTH_URL,
+
+  trustedOrigins: [
+    "https://eventsphere-client-ten.vercel.app",
+  ],
+
+  advanced: {
+    defaultCookieAttributes: {
+      sameSite: "none", 
+      secure: true,        
+      partitioned: true, 
+    },
+  },
+
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
