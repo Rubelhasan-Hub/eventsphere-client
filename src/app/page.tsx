@@ -34,7 +34,7 @@ export default async function HomePage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {events.map((event: IEvent) => (
-            <EventCard key={event._id} id={event._id} title={event.title} description={event.description} price={event.price} imageUrl={event.imageUrl} />
+            <EventCard key={event._id} id={event._id} title={event.title} description={event.description} price={event.price} image={event.image} />
           ))}
         </div>
       </section>

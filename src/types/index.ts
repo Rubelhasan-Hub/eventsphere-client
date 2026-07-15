@@ -4,7 +4,7 @@ export interface IEvent {
   title: string;
   description: string;
   price: number;
-  imageUrl: string;
+  image: string;
   category: string;
   date: string;
 }

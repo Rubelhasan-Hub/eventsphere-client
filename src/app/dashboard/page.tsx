@@ -23,12 +23,12 @@ const DashboardPage = () => {
     }
   }, [session, isPending, router]);
 
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dashboard/stats`)
-      .then((res) => res.json())
-      .then((data) => setStats(data))
-      .catch((err) => console.error("Error fetching stats:", err));
-  }, []);
+  // useEffect(() => {
+  //   fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dashboard/stats`)
+  //     .then((res) => res.json())
+  //     .then((data) => setStats(data))
+  //     .catch((err) => console.error("Error fetching stats:", err));
+  // }, []);
 
   if (isPending) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;

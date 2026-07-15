@@ -6,14 +6,15 @@ interface EventCardProps {
   title: string;
   description: string;
   price: number;
-  imageUrl: string;
+  image: string;
   id: string;
 }
 
-export const EventCard = ({ title, description, price, imageUrl, id }: EventCardProps) => (
+
+export const EventCard = ({ title, description, price, image, id }: EventCardProps) => (
   <div className="bg-white border border-gray-100 rounded-3xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-105">
     <div className="relative w-full h-48 rounded-2xl overflow-hidden mb-4 shrink-0">
-      <Image src={imageUrl} alt={title} fill className="object-cover" />
+      <Image src={image} alt={title} fill className="object-cover" />
     </div>
     <div className="grow space-y-2">
       <h3 className="font-bold text-gray-900 text-lg line-clamp-1">{title}</h3>
