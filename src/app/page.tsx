@@ -22,7 +22,11 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-gray-900 z-0"></div>
         <div className="relative z-10 text-center space-y-6">
           <h1 className="text-5xl md:text-7xl font-black tracking-tight">Experience Events, Reimagined</h1>
-          <Button size="lg" className="bg-indigo-600 text-white font-bold rounded-2xl px-10">Explore Now</Button>
+          <Link href="/events">
+            <Button size="lg" className="bg-indigo-600 text-white font-bold rounded-2xl px-10">
+              Explore Events
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -55,7 +59,7 @@ export default async function HomePage() {
 
       {/* 4. Statistics Section */}
       <section className="py-20 max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        {[ {label: "Events", val: "500+"}, {label: "Users", val: "10k+"}, {label: "Locations", val: "50+"}, {label: "Support", val: "24/7"} ].map(stat => (
+        {[{ label: "Events", val: "500+" }, { label: "Users", val: "10k+" }, { label: "Locations", val: "50+" }, { label: "Support", val: "24/7" }].map(stat => (
           <div key={stat.label}>
             <h3 className="text-4xl font-black text-indigo-600">{stat.val}</h3>
             <p className="text-gray-600 font-medium mt-2">{stat.label}</p>
@@ -73,10 +77,10 @@ export default async function HomePage() {
       <section className="py-20 text-center px-4">
         <h2 className="text-3xl font-black mb-6">Stay Updated</h2>
         <div className="max-w-md mx-auto flex gap-2">
-           <input type="email" placeholder="Enter your email" className="w-full p-4 rounded-2xl border border-gray-300" />
-           <Button className="bg-black text-white px-8 rounded-2xl">Join</Button>
+          <input type="email" placeholder="Enter your email" className="w-full p-4 rounded-2xl border border-gray-300" />
+          <Button className="bg-black text-white px-8 rounded-2xl">Join</Button>
         </div>
       </section>
-    </main>
+    </main >
   );
 }

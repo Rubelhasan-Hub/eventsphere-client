@@ -129,7 +129,6 @@ const RegisterPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-3.5 bg-gray-50/50 border border-gray-200 rounded-2xl text-sm text-gray-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all duration-200"
-                placeholder="John Doe"
               />
             </div>
             <div>
@@ -140,7 +139,6 @@ const RegisterPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3.5 bg-gray-50/50 border border-gray-200 rounded-2xl text-sm text-gray-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all duration-200"
-                placeholder="alex@example.com"
               />
             </div>
             <div>
@@ -152,7 +150,6 @@ const RegisterPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 pr-12 py-3.5 bg-gray-50/50 border border-gray-200 rounded-2xl text-sm text-gray-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all duration-200"
-                  placeholder="••••••••"
                 />
                 <button
                   type="button"
