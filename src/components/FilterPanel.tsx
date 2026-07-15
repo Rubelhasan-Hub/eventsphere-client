@@ -1,54 +1,31 @@
 'use client';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Button } from "@heroui/react";
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 export const FilterPanel = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
+  const currentCategory = searchParams.get('category') || 'all';
 
-  const handleFilter = (key: string, value: string): void => {
-    const params = new URLSearchParams(searchParams.toString());
-    
-    if (value === 'all') {
-      params.delete(key);
-    } else {
-      params.set(key, value);
-    }
-    
-    // ইউআরএল আপডেট হলে পেজ অটোমেটিক রি-ফেচ হবে
-    router.push(`/events?${params.toString()}`);
-  };
-
-  const categories: string[] = ['Music', 'Technology', 'Sports', 'Art', 'Health', 'Food'];
+  const categories = ['all', 'Technology', 'Health', 'Food', 'Art', 'Business'];
 
   return (
     <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm sticky top-24">
-      <h3 className="font-black text-xl mb-6">Filters</h3>
-      <div className="space-y-4">
-        <button 
-          onClick={() => handleFilter('category', 'all')} 
-          className="block w-full text-left text-sm font-medium text-gray-600 hover:text-indigo-600"
-        >
-          All Categories
-        </button>
-        {categories.map((cat: string) => (
-          <button 
+      <h3 className="font-black text-gray-900 mb-6 text-xl">Categories</h3>
+      <div className="space-y-3">
+        {categories.map((cat) => (
+          <Link
             key={cat}
-            onClick={() => handleFilter('category', cat)}
-            className={`block w-full text-left text-sm font-bold transition ${
-              searchParams.get('category') === cat ? 'text-indigo-600' : 'text-gray-600 hover:text-indigo-600'
+            href={`/events?category=${cat}&page=1`}
+            className={`block px-5 py-3 rounded-2xl font-bold transition-all duration-200 ${
+              currentCategory === cat 
+                ? 'bg-gray-900 text-white shadow-lg' 
+                : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
             }`}
           >
-            {cat}
-          </button>
+            {cat.charAt(0).toUpperCase() + cat.slice(1)}
+          </Link>
         ))}
       </div>
-      <Button 
-        className="w-full mt-6 bg-gray-900 text-white font-bold rounded-xl" 
-        onClick={() => router.push('/events')}
-      >
-        Reset Filters
-      </Button>
     </div>
   );
 };

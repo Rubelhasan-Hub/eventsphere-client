@@ -1,4 +1,3 @@
-
 export interface IEvent {
   _id: string;
   title: string;
@@ -7,4 +6,9 @@ export interface IEvent {
   image: string;
   category: string;
   date: string;
+  rating?: number;
+  reviews?: number;
+  location?: string;
+  status?: 'pending' | 'approved';
+  createdAt?: string;
 }
